@@ -38,10 +38,34 @@ input,select,textarea{font-size:16px}
 #nav{scrollbar-width:none}#nav::-webkit-scrollbar{display:none}
 .chip,.btn,.btn2{min-height:40px;display:inline-flex;align-items:center;justify-content:center}
 @media (max-width:640px){#grid,#sgrid{gap:.75rem}main{padding-left:.75rem!important;padding-right:.75rem!important}}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(60% 45% at 85% -5%,rgba(34,197,94,.16),transparent),radial-gradient(45% 35% at 0% 35%,rgba(34,197,94,.08),transparent)}
+body.oled::before{display:none}
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+header,main,footer{position:relative;z-index:10}
+.logo-spin{animation:spin 1.4s cubic-bezier(.2,.8,.2,1) 1;filter:drop-shadow(0 0 8px rgba(34,197,94,.7))}
+@keyframes spin{from{transform:rotate(-180deg) scale(.4);opacity:0}to{transform:none;opacity:1}}
+.rise{animation:rise .5s backwards}@keyframes rise{from{opacity:0;transform:translateY(14px)}}
+.card{transition:transform .2s,box-shadow .2s,border-color .2s}
+.card:active{transform:scale(.97)}
+.card .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.2) 50%,transparent 60%);transform:translateX(-120%);pointer-events:none}
+@media (hover:hover){.card:hover{transform:translateY(-4px);box-shadow:0 10px 30px -8px rgba(34,197,94,.5)}.card:hover .shine{transform:translateX(120%);transition:transform .7s}}
+.hero-slide{position:absolute;inset:0;opacity:0;transition:opacity .8s;pointer-events:none;overflow:hidden}
+.hero-slide.on{opacity:1;pointer-events:auto}
+.hero-bg{position:absolute;inset:-20px;background:var(--bg) center/cover;filter:blur(18px) saturate(1.3) brightness(.5)}
+.hero-slide::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,#050805 0%,transparent 75%)}
+.hero-slide>div:last-child{position:relative;z-index:2}
+.clamp3{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.dot{width:8px;height:8px;border-radius:99px;background:#355a3d;transition:all .3s}.dot.on{width:22px;background:var(--g)}
+.title-glow{text-shadow:0 0 22px rgba(34,197,94,.45)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:2px;padding:.5rem 0;font-size:.7rem;color:#7f947a}
+.tab span{font-size:1.25rem;line-height:1.2}.tab.on{color:var(--g)}
+#modal:not(.hidden) #modal-body{animation:pop .25s ease-out}@keyframes pop{from{opacity:0;transform:translateY(20px) scale(.97)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
-<body class="min-h-screen">
+<body class="min-h-screen pb-16 md:pb-0">
+<canvas id="fx"></canvas>
 
 <svg width="0" height="0" style="position:absolute"><defs>
 <path id="leaf" d="M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z"/>
@@ -51,27 +75,30 @@ input,select,textarea{font-size:16px}
 <header class="md:sticky md:top-0 z-40 border-b border-[#1d2a1d] bg-black/90 backdrop-blur">
   <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
     <a href="#" onclick="show('discover');return false" class="flex items-center gap-2 shrink-0">
-      <svg class="w-9 h-9 sm:w-10 sm:h-10 text-green-500"><use href="#clover"/></svg>
-      <span class="brand text-2xl font-extrabold">Kuro<span class="text-green-500">Watch</span></span>
+      <svg class="logo-spin w-9 h-9 sm:w-10 sm:h-10 text-green-500"><use href="#clover"/></svg>
+      <span class="brand text-2xl font-extrabold title-glow">Kuro<span class="text-green-500">Watch</span></span>
     </a>
     <form onsubmit="doSearch(event)" class="order-2 md:order-none w-full md:w-auto md:flex-1 max-w-xl">
       <input id="q" type="search" placeholder="Search anime, like Black Clover or Frieren" class="w-full rounded-xl bg-[#0d130d] border border-[#1d2a1d] px-4 py-2 outline-none focus:border-green-500" aria-label="Search anime">
     </form>
-    <nav class="order-3 md:order-none flex gap-2 text-sm overflow-x-auto w-full md:w-auto pb-1" id="nav">
+    <nav class="hidden md:flex gap-2 text-sm" id="nav">
       <button class="chip on" data-v="discover" onclick="show('discover')">Discover</button>
       <button class="chip" data-v="schedule" onclick="show('schedule')">Schedule</button>
       <button class="chip" data-v="mylist" onclick="show('mylist')">My list</button>
       <button class="chip" data-v="player" onclick="show('player')">Player</button>
+    </nav>
+    <div class="order-1 ml-auto md:order-none md:ml-0 flex gap-2 text-sm">
       <button class="chip" onclick="toggleOled()" id="oled">OLED off</button>
       <button class="chip" onclick="authClick()" id="auth-btn">Sign in</button>
-    </nav>
+    </div>
   </div>
 </header>
 
 <main class="max-w-7xl mx-auto px-4 py-6">
   <section id="v-discover">
+    <div id="hero" class="relative rounded-3xl overflow-hidden mb-6 hidden h-[300px] sm:h-[380px] border border-[#1d2a1d]"></div>
     <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-      <h2 class="text-2xl font-extrabold" id="d-title">Airing now</h2>
+      <h2 class="text-2xl font-extrabold title-glow" id="d-title">Airing now</h2>
       <div class="flex flex-wrap gap-2" id="d-chips">
         <button class="chip on" onclick="loadDiscover('airing',this)">Airing now</button>
         <button class="chip" onclick="loadDiscover('popular',this)">Most popular</button>
@@ -148,6 +175,13 @@ input,select,textarea{font-size:16px}
 <footer class="max-w-7xl mx-auto px-4 py-8 mt-6 border-t border-[#1d2a1d] text-sm text-[#9fb39a]">
   <p class="max-w-3xl">KuroWatch is a free anime discovery site. Search thousands of anime, read synopses and scores, watch official trailers, check the weekly airing schedule, and keep a watchlist with episode progress. Every show links to the services where it streams legally. KuroWatch does not host any video.</p>
 </footer>
+<nav id="tabbar" class="md:hidden fixed bottom-0 inset-x-0 z-40 grid grid-cols-4 bg-black/95 backdrop-blur border-t border-[#1d2a1d]" style="padding-bottom:env(safe-area-inset-bottom)">
+  <button class="tab on" data-v="discover" onclick="show('discover')"><span>🔥</span>Discover</button>
+  <button class="tab" data-v="schedule" onclick="show('schedule')"><span>📅</span>Schedule</button>
+  <button class="tab" data-v="mylist" onclick="show('mylist')"><span>📚</span>My list</button>
+  <button class="tab" data-v="player" onclick="show('player')"><span>▶️</span>Player</button>
+</nav>
+
 <div id="modal" class="fixed inset-0 z-50 hidden bg-black/85 p-3 overflow-y-auto" onclick="if(event.target===this)closeModal()">
   <div class="panel rounded-2xl max-w-3xl mx-auto my-2 sm:my-4 p-4 sm:p-5" role="dialog" aria-modal="true" id="modal-body"></div>
 </div>
@@ -172,7 +206,7 @@ input,select,textarea{font-size:16px}
   </div>
 </div>
 
-<div id="toast" class="fixed bottom-4 left-3 right-3 sm:left-auto sm:right-5 z-50 text-center hidden panel border-green-500 rounded-xl px-4 py-2 text-sm"></div>
+<div id="toast" class="fixed bottom-20 md:bottom-4 left-3 right-3 sm:left-auto sm:right-5 z-50 text-center hidden panel border-green-500 rounded-xl px-4 py-2 text-sm"></div>
 
 <script>
 /* Firebase web config for online sign-in. */
@@ -208,9 +242,9 @@ const pic=a=>a.images?.jpg?.large_image_url||a.images?.jpg?.image_url||'';
 
 function card(a){
   const inList=list[a.mal_id];
-  return `<button onclick="openDetail(${a.mal_id})" class="text-left group panel rounded-xl overflow-hidden hover:border-green-500 transition">
+  return `<button onclick="openDetail(${a.mal_id})" class="card rise text-left group panel rounded-xl overflow-hidden hover:border-green-500">
     <div class="relative aspect-[3/4] bg-black">
-      <img loading="lazy" src="${esc(pic(a))}" alt="${esc(name(a))} cover" class="w-full h-full object-cover">
+      <img loading="lazy" src="${esc(pic(a))}" alt="${esc(name(a))} cover" class="w-full h-full object-cover"><span class="shine"></span>
       ${a.score?`<span class="absolute top-2 left-2 bg-black/80 text-green-400 text-xs font-bold px-2 py-0.5 rounded">${a.score}</span>`:''}
       ${inList?`<span class="absolute top-2 right-2 bg-green-500 text-black text-xs font-bold px-2 py-0.5 rounded">${esc(inList.status)}</span>`:''}
     </div>
@@ -221,7 +255,9 @@ function fill(el,items){
   const seen=new Set();
   items=items.filter(a=>!seen.has(a.mal_id)&&seen.add(a.mal_id));
   el.innerHTML=items.length?items.map(card).join(''):'<p class="text-[#9fb39a] col-span-full">No results. Try another title.</p>';
+  stagger(el);
 }
+function stagger(el){[...el.children].forEach((c,i)=>c.style.animationDelay=Math.min(i,14)*45+'ms')}
 function skeleton(el){el.innerHTML=Array(12).fill('<div class="aspect-[3/4] rounded-xl bg-[#0d130d] animate-pulse"></div>').join('')}
 
 /* AniList backup source */
@@ -254,7 +290,7 @@ function failBox(msg,retry){return `<div class="col-span-full panel rounded-xl p
 /* views */
 function show(v){
   ['discover','schedule','mylist','player'].forEach(x=>$('#v-'+x).classList.toggle('hidden',x!==v));
-  document.querySelectorAll('#nav [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  document.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
   if(v==='schedule'&&!$('#days').children.length)initSchedule();
   if(v==='mylist')renderList();
   scrollTo(0,0);
@@ -272,13 +308,13 @@ async function loadDiscover(k,btn){
   try{
     let items;
     try{items=(await api(feeds[k][1])).data}catch(e){items=await alRun(feeds[k][2],'')}
-    fill($('#grid'),items);
+    fill($('#grid'),items);renderHero(items,feeds[k][0]);
   }catch(e){$('#grid').innerHTML=failBox(e.message,`loadDiscover('${k}')`)}
 }
 async function doSearch(e){
   e.preventDefault();const q=$('#q').value.trim();if(!q)return;
   show('discover');document.querySelectorAll('#d-chips .chip').forEach(c=>c.classList.remove('on'));
-  $('#d-title').textContent='Results for "'+q+'"';$('#status').textContent='';skeleton($('#grid'));
+  $('#d-title').textContent='Results for "'+q+'"';clearInterval(heroT);$('#hero').classList.add('hidden');$('#status').textContent='';skeleton($('#grid'));
   try{
     let items;
     try{items=(await api('/anime?q='+encodeURIComponent(q)+'&limit=24&sfw=true&order_by=popularity')).data}
@@ -441,6 +477,49 @@ function mergeRemote(d){
 function exportData(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({list,hist})],{type:'application/json'}));a.download='kurowatch-backup.json';a.click()}
 function importData(inp){const f=inp.files[0];if(!f)return;f.text().then(t=>{try{mergeRemote(JSON.parse(t));toast('Backup imported')}catch(e){toast('That file is not a valid backup')}})}
 const getList=()=>list,getHist=()=>hist;
+
+
+/* hero banner */
+let heroT,heroI=0,heroN=0;
+function renderHero(items,label){
+  const h=$('#hero');clearInterval(heroT);
+  const list=items.filter(a=>pic(a)).slice(0,5);heroN=list.length;
+  if(!heroN){h.classList.add('hidden');return}
+  h.classList.remove('hidden');heroI=0;
+  h.innerHTML=list.map((a,i)=>`<div class="hero-slide ${i?'':'on'}" style="--bg:url('${esc(pic(a))}')"><div class="hero-bg"></div>
+    <div class="flex gap-4 items-end p-4 sm:p-8 h-full">
+      <img src="${esc(pic(a))}" alt="" class="w-24 sm:w-40 rounded-xl shadow-2xl shrink-0 border border-white/10">
+      <div class="min-w-0 pb-6 sm:pb-8"><p class="text-green-400 text-sm font-bold">#${i+1} ${esc(label)}${a.score?' - '+a.score+' score':''}</p>
+      <h2 class="text-xl sm:text-4xl font-extrabold clamp2 title-glow">${esc(name(a))}</h2>
+      <p class="hidden sm:block text-sm text-[#cfdccb] clamp3 mt-2 max-w-2xl">${esc(a.synopsis||'')}</p>
+      <button class="btn mt-3" onclick="openDetail(${a.mal_id})">View details</button></div></div></div>`).join('')
+    +`<div class="absolute bottom-3 left-0 right-0 z-10 flex justify-center gap-1.5">${list.map((_,i)=>`<button class="dot ${i?'':'on'}" aria-label="Show slide ${i+1}" onclick="heroGo(${i})"></button>`).join('')}</div>`;
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)heroT=setInterval(()=>heroGo((heroI+1)%heroN),6000);
+}
+function heroGo(i){
+  heroI=i;document.querySelectorAll('.hero-slide').forEach((e,j)=>e.classList.toggle('on',j===i));
+  document.querySelectorAll('#hero .dot').forEach((e,j)=>e.classList.toggle('on',j===i));
+}
+
+/* falling clover leaves */
+(function(){
+  const c=document.getElementById('fx');if(!c||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const x=c.getContext('2d'),leaf=new Path2D('M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z');
+  let W,H,P=[];const R=Math.random;
+  function size(){W=c.width=innerWidth;H=c.height=innerHeight;P=Array.from({length:innerWidth<640?8:16},()=>({x:R()*W,y:R()*H,s:.3+R()*.6,v:.25+R()*.45,r:R()*6.28,w:(R()-.5)*.012,a:.05+R()*.1,p:R()*6.28}))}
+  size();addEventListener('resize',size);
+  (function tick(){
+    x.clearRect(0,0,W,H);
+    for(const q of P){
+      q.y+=q.v;q.x+=Math.sin(q.y/60+q.p)*.4;q.r+=q.w;
+      if(q.y>H+40){q.y=-40;q.x=R()*W}
+      x.save();x.translate(q.x,q.y);x.rotate(q.r);x.scale(q.s,q.s);x.fillStyle='rgba(34,197,94,'+q.a+')';
+      for(let i=0;i<5;i++){x.rotate(1.2566);x.fill(leaf)}
+      x.restore();
+    }
+    requestAnimationFrame(tick);
+  })();
+})();
 
 /* theme */
 function toggleOled(){const on=document.body.classList.toggle('oled');$('#oled').textContent='OLED '+(on?'on':'off');store.set('kw_oled',on)}
