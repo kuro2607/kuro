@@ -7,35 +7,16 @@
 <meta name="description" content="KuroWatch is a free anime discovery site. Search anime, see where each show streams legally, check the weekly schedule, and keep a watchlist.">
 <link rel="canonical" href="https://kuro2607.github.io/kuro/">
 <meta name="robots" content="index, follow">
-
-<!-- Google Search Console verification tag (paste your code here when ready) -->
+<!-- After adding the site in Google Search Console, paste its verification tag here: -->
 <!-- <meta name="google-site-verification" content="YOUR_CODE"> -->
-
-<!-- Open Graph & Social Cards -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="KuroWatch">
 <meta property="og:title" content="KuroWatch - Find anime, track it, watch it legally">
 <meta property="og:description" content="Search anime, see where it streams legally, check the weekly schedule, and keep a watchlist.">
 <meta property="og:url" content="https://kuro2607.github.io/kuro/">
 <meta name="twitter:card" content="summary">
-
-<!-- Schema.org WebSite declaration for Google Brand Search -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "KuroWatch",
-  "alternateName": ["kurowatch", "Kuro Watch", "kuro2607"],
-  "url": "https://kuro2607.github.io/kuro/",
-  "description": "Anime discovery, schedule and watchlist tracker."
-}
-</script>
-
-<!-- Favicon definitions for Googlebot and standard browsers -->
-<link rel="icon" type="image/png" sizes="48x48" href="https://kuro2607.github.io/kuro/favicon.png">
-<link rel="apple-touch-icon" href="https://kuro2607.github.io/kuro/favicon.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"KuroWatch","url":"https://kuro2607.github.io/kuro/","description":"Anime discovery, schedule and watchlist tracker."}</script>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-40 -40 80 80'><g fill='%2322c55e'><path id='l' d='M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z'/><path d='M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z' transform='rotate(72)'/><path d='M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z' transform='rotate(144)'/><path d='M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z' transform='rotate(216)'/><path d='M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z' transform='rotate(288)'/></g></svg>">
-
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
@@ -92,146 +73,137 @@ header,main,footer{position:relative;z-index:10}
 </defs></svg>
 
 <header class="md:sticky md:top-0 z-40 border-b border-[#1d2a1d] bg-black/90 backdrop-blur">
-  <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
-    <a href="#" onclick="show('discover');return false" class="flex items-center gap-2 shrink-0">
-      <svg class="logo-spin w-9 h-9 sm:w-10 sm:h-10 text-green-500"><use href="#clover"/></svg>
-      <span class="brand text-2xl font-extrabold title-glow">Kuro<span class="text-green-500">Watch</span></span>
-    </a>
-    <form onsubmit="doSearch(event)" class="order-2 md:order-none w-full md:w-auto md:flex-1 max-w-xl">
-      <input id="q" type="search" placeholder="Search anime, like Black Clover or Frieren" class="w-full rounded-xl bg-[#0d130d] border border-[#1d2a1d] px-4 py-2 outline-none focus:border-green-500" aria-label="Search anime">
-    </form>
-    <nav class="hidden md:flex gap-2 text-sm" id="nav">
-      <button class="chip on" data-v="discover" onclick="show('discover')">Discover</button>
-      <button class="chip" data-v="schedule" onclick="show('schedule')">Schedule</button>
-      <button class="chip" data-v="mylist" onclick="show('mylist')">My list</button>
-      <button class="chip" data-v="player" onclick="show('player')">Player</button>
-      <a href="https://kuro2607.github.io/hub/" class="chip">Hub</a>
-      <a href="https://kuro2607.github.io/kuronews/" class="chip">News</a>
-    </nav>
-    <div class="order-1 ml-auto md:order-none md:ml-0 flex gap-2 text-sm">
-      <button class="chip" onclick="toggleOled()" id="oled">OLED off</button>
-      <button class="chip" onclick="authClick()" id="auth-btn">Sign in</button>
-    </div>
-  </div>
+  <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
+    <a href="#" onclick="show('discover');return false" class="flex items-center gap-2 shrink-0">
+      <svg class="logo-spin w-9 h-9 sm:w-10 sm:h-10 text-green-500"><use href="#clover"/></svg>
+      <span class="brand text-2xl font-extrabold title-glow">Kuro<span class="text-green-500">Watch</span></span>
+    </a>
+    <form onsubmit="doSearch(event)" class="order-2 md:order-none w-full md:w-auto md:flex-1 max-w-xl">
+      <input id="q" type="search" placeholder="Search anime, like Black Clover or Frieren" class="w-full rounded-xl bg-[#0d130d] border border-[#1d2a1d] px-4 py-2 outline-none focus:border-green-500" aria-label="Search anime">
+    </form>
+    <nav class="hidden md:flex gap-2 text-sm" id="nav">
+      <button class="chip on" data-v="discover" onclick="show('discover')">Discover</button>
+      <button class="chip" data-v="schedule" onclick="show('schedule')">Schedule</button>
+      <button class="chip" data-v="mylist" onclick="show('mylist')">My list</button>
+      <button class="chip" data-v="player" onclick="show('player')">Player</button>
+    </nav>
+    <div class="order-1 ml-auto md:order-none md:ml-0 flex gap-2 text-sm">
+      <button class="chip" onclick="toggleOled()" id="oled">OLED off</button>
+      <button class="chip" onclick="authClick()" id="auth-btn">Sign in</button>
+    </div>
+  </div>
 </header>
 
 <main class="max-w-7xl mx-auto px-4 py-6">
-  <section id="v-discover">
-    <div id="hero" class="relative rounded-3xl overflow-hidden mb-6 hidden h-[300px] sm:h-[380px] border border-[#1d2a1d]"></div>
-    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-      <h2 class="text-2xl font-extrabold title-glow" id="d-title">Airing now</h2>
-      <div class="flex flex-wrap gap-2" id="d-chips">
-        <button class="chip on" onclick="loadDiscover('airing',this)">Airing now</button>
-        <button class="chip" onclick="loadDiscover('popular',this)">Most popular</button>
-        <button class="chip" onclick="loadDiscover('top',this)">Top rated</button>
-        <button class="chip" onclick="loadDiscover('upcoming',this)">Upcoming</button>
-      </div>
-    </div>
-    <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
-    <p id="status" class="text-sm text-[#9fb39a] mt-4"></p>
-  </section>
+  <section id="v-discover">
+    <div id="hero" class="relative rounded-3xl overflow-hidden mb-6 hidden h-[300px] sm:h-[380px] border border-[#1d2a1d]"></div>
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+      <h2 class="text-2xl font-extrabold title-glow" id="d-title">Airing now</h2>
+      <div class="flex flex-wrap gap-2" id="d-chips">
+        <button class="chip on" onclick="loadDiscover('airing',this)">Airing now</button>
+        <button class="chip" onclick="loadDiscover('popular',this)">Most popular</button>
+        <button class="chip" onclick="loadDiscover('top',this)">Top rated</button>
+        <button class="chip" onclick="loadDiscover('upcoming',this)">Upcoming</button>
+      </div>
+    </div>
+    <div id="grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
+    <p id="status" class="text-sm text-[#9fb39a] mt-4"></p>
+  </section>
 
-  <section id="v-schedule" class="hidden">
-    <h2 class="text-2xl font-extrabold mb-1">Weekly schedule</h2>
-    <p class="text-sm text-[#9fb39a] mb-4">Shows currently airing in Japan, by broadcast day.</p>
-    <div class="flex flex-wrap gap-2 mb-4" id="days"></div>
-    <div id="sgrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
-  </section>
+  <section id="v-schedule" class="hidden">
+    <h2 class="text-2xl font-extrabold mb-1">Weekly schedule</h2>
+    <p class="text-sm text-[#9fb39a] mb-4">Shows currently airing in Japan, by broadcast day.</p>
+    <div class="flex flex-wrap gap-2 mb-4" id="days"></div>
+    <div id="sgrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4"></div>
+  </section>
 
-  <section id="v-mylist" class="hidden">
-    <h2 class="text-2xl font-extrabold mb-4">My list</h2>
-    <div id="mylist-body" class="space-y-8"></div>
-    <div class="flex items-center justify-between mt-10 mb-3">
-      <h3 class="text-xl font-extrabold">Recently viewed</h3>
-      <button class="btn2 text-sm" onclick="clearHist()">Clear history</button>
-    </div>
-    <div id="hist" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-3"></div>
-  </section>
+  <section id="v-mylist" class="hidden">
+    <h2 class="text-2xl font-extrabold mb-4">My list</h2>
+    <div id="mylist-body" class="space-y-8"></div>
+    <div class="flex items-center justify-between mt-10 mb-3">
+      <h3 class="text-xl font-extrabold">Recently viewed</h3>
+      <button class="btn2 text-sm" onclick="clearHist()">Clear history</button>
+    </div>
+    <div id="hist" class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-3"></div>
+  </section>
 
-  <section id="v-player" class="hidden max-w-4xl">
-    <h2 class="text-2xl font-extrabold mb-1">Player</h2>
-    <p class="text-sm text-[#9fb39a] mb-4">Plays YouTube links (official channels), free open movies, and video files from your own device.</p>
-    <div class="panel rounded-2xl overflow-hidden">
-      <div class="aspect-video bg-black flex items-center justify-center" id="stage">
-        <p class="text-[#9fb39a] text-sm px-4 text-center">Pick a video below to start watching.</p>
-      </div>
-    </div>
-    <div class="grid md:grid-cols-2 gap-4 mt-4">
-      <form onsubmit="playYT(event)" class="panel rounded-2xl p-4 space-y-2">
-        <label class="font-bold" for="yt">Play a YouTube link</label>
-        <input id="yt" placeholder="Video or playlist link from YouTube" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
-        <button class="btn">Play</button>
-        <p class="text-xs text-[#9fb39a]">Publishers such as Ani-One, Muse Asia and Crunchyroll post full episodes and trailers on YouTube.</p>
-      </form>
-      <div class="panel rounded-2xl p-4 space-y-2">
-        <label class="font-bold" for="file">Play a file from your device</label>
-        <input id="file" type="file" accept="video/*" onchange="playFile(this)" class="block w-full text-sm">
-        <p class="text-xs text-[#9fb39a]">The file stays on your device. Nothing is uploaded.</p>
-      </div>
-    </div>
-    <div class="panel rounded-2xl p-4 mt-4 space-y-3">
-      <p class="font-bold">Find full episodes on official channels</p>
-      <form onsubmit="ytFind(event)" class="flex flex-wrap gap-2">
-        <input id="ytq" placeholder="Anime title, like Black Clover" class="flex-1 min-w-[180px] rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500" aria-label="Anime title">
-        <select id="ytch" class="bg-black border border-[#1d2a1d] rounded-lg px-3 py-2" aria-label="Channel">
-          <option>Ani-One Asia</option><option>Ani-One India</option><option>Muse Asia</option></select>
-        <button class="btn">Search on YouTube</button>
-      </form>
-      <p class="text-xs text-[#9fb39a]">The search opens YouTube in a new tab. Copy the video or playlist link you want, paste it above, and it plays here.</p>
-      <div class="flex flex-wrap gap-2">
-        <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@AniOneAsia">Ani-One Asia channel</a>
-        <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@AniOneTHCollection">Ani-One Thailand Collection</a>
-      </div>
-    </div>
-    <h3 class="font-bold mt-6 mb-2">Free open movies</h3>
-    <div class="flex flex-wrap gap-2">
-      <button class="btn2" onclick="embed('eRsGyueVLvQ')">Sintel</button>
-      <button class="btn2" onclick="embed('aqz-KE-bpKQ')">Big Buck Bunny</button>
-      <button class="btn2" onclick="embed('R6MlUcmOul8')">Tears of Steel</button>
-    </div>
-    <p class="text-xs text-[#9fb39a] mt-2">Made by the Blender Foundation under Creative Commons licenses.</p>
-  </section>
+  <section id="v-player" class="hidden max-w-4xl">
+    <h2 class="text-2xl font-extrabold mb-1">Player</h2>
+    <p class="text-sm text-[#9fb39a] mb-4">Plays YouTube links (official channels), free open movies, and video files from your own device.</p>
+    <div class="panel rounded-2xl overflow-hidden">
+      <div class="aspect-video bg-black flex items-center justify-center" id="stage">
+        <p class="text-[#9fb39a] text-sm px-4 text-center">Pick a video below to start watching.</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 mt-4">
+      <form onsubmit="playYT(event)" class="panel rounded-2xl p-4 space-y-2">
+        <label class="font-bold" for="yt">Play a YouTube link</label>
+        <input id="yt" placeholder="Video or playlist link from YouTube" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
+        <button class="btn">Play</button>
+        <p class="text-xs text-[#9fb39a]">Publishers such as Ani-One, Muse Asia and Crunchyroll post full episodes and trailers on YouTube.</p>
+      </form>
+      <div class="panel rounded-2xl p-4 space-y-2">
+        <label class="font-bold" for="file">Play a file from your device</label>
+        <input id="file" type="file" accept="video/*" onchange="playFile(this)" class="block w-full text-sm">
+        <p class="text-xs text-[#9fb39a]">The file stays on your device. Nothing is uploaded.</p>
+      </div>
+    </div>
+    <div class="panel rounded-2xl p-4 mt-4 space-y-3">
+      <p class="font-bold">Find full episodes on official channels</p>
+      <form onsubmit="ytFind(event)" class="flex flex-wrap gap-2">
+        <input id="ytq" placeholder="Anime title, like Black Clover" class="flex-1 min-w-[180px] rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500" aria-label="Anime title">
+        <select id="ytch" class="bg-black border border-[#1d2a1d] rounded-lg px-3 py-2" aria-label="Channel">
+          <option>Ani-One Asia</option><option>Ani-One India</option><option>Muse Asia</option></select>
+        <button class="btn">Search on YouTube</button>
+      </form>
+      <p class="text-xs text-[#9fb39a]">The search opens YouTube in a new tab. Copy the video or playlist link you want, paste it above, and it plays here.</p>
+      <div class="flex flex-wrap gap-2">
+        <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@AniOneAsia">Ani-One Asia channel</a>
+        <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@AniOneTHCollection">Ani-One Thailand Collection</a>
+      </div>
+    </div>
+    <h3 class="font-bold mt-6 mb-2">Free open movies</h3>
+    <div class="flex flex-wrap gap-2">
+      <button class="btn2" onclick="embed('eRsGyueVLvQ')">Sintel</button>
+      <button class="btn2" onclick="embed('aqz-KE-bpKQ')">Big Buck Bunny</button>
+      <button class="btn2" onclick="embed('R6MlUcmOul8')">Tears of Steel</button>
+    </div>
+    <p class="text-xs text-[#9fb39a] mt-2">Made by the Blender Foundation under Creative Commons licenses.</p>
+  </section>
 </main>
 
 <footer class="max-w-7xl mx-auto px-4 py-8 mt-6 border-t border-[#1d2a1d] text-sm text-[#9fb39a]">
-  <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-    <p class="max-w-3xl">KuroWatch is a free anime discovery site. Search thousands of anime, read synopses and scores, watch official trailers, check the weekly airing schedule, and keep a watchlist with episode progress. KuroWatch does not host video files.</p>
-    <div class="flex flex-wrap gap-2 shrink-0">
-      <a class="chip text-xs" href="https://kuro2607.github.io/hub/">KuroHub</a>
-      <a class="chip text-xs" href="https://kuro2607.github.io/kuronews/">KuroNews</a>
-    </div>
-  </div>
+  <p class="max-w-3xl">KuroWatch is a free anime discovery site. Search thousands of anime, read synopses and scores, watch official trailers, check the weekly airing schedule, and keep a watchlist with episode progress. Every show links to the services where it streams legally. KuroWatch does not host any video.</p>
 </footer>
-
 <nav id="tabbar" class="md:hidden fixed bottom-0 inset-x-0 z-40 grid grid-cols-4 bg-black/95 backdrop-blur border-t border-[#1d2a1d]" style="padding-bottom:env(safe-area-inset-bottom)">
-  <button class="tab on" data-v="discover" onclick="show('discover')"><span>🔥</span>Discover</button>
-  <button class="tab" data-v="schedule" onclick="show('schedule')"><span>📅</span>Schedule</button>
-  <button class="tab" data-v="mylist" onclick="show('mylist')"><span>📚</span>My list</button>
-  <button class="tab" data-v="player" onclick="show('player')"><span>▶️</span>Player</button>
+  <button class="tab on" data-v="discover" onclick="show('discover')"><span>🔥</span>Discover</button>
+  <button class="tab" data-v="schedule" onclick="show('schedule')"><span>📅</span>Schedule</button>
+  <button class="tab" data-v="mylist" onclick="show('mylist')"><span>📚</span>My list</button>
+  <button class="tab" data-v="player" onclick="show('player')"><span>▶️</span>Player</button>
 </nav>
 
 <div id="modal" class="fixed inset-0 z-50 hidden bg-black/85 p-3 overflow-y-auto" onclick="if(event.target===this)closeModal()">
-  <div class="panel rounded-2xl max-w-3xl mx-auto my-2 sm:my-4 p-4 sm:p-5" role="dialog" aria-modal="true" id="modal-body"></div>
+  <div class="panel rounded-2xl max-w-3xl mx-auto my-2 sm:my-4 p-4 sm:p-5" role="dialog" aria-modal="true" id="modal-body"></div>
 </div>
 
 <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-black/85 p-3 overflow-y-auto" onclick="if(event.target===this)closeAuth()">
-  <div class="panel rounded-2xl max-w-sm mx-auto my-8 p-5 space-y-4" role="dialog" aria-modal="true" aria-label="Account">
-    <div class="flex justify-between items-center"><h2 class="text-xl font-extrabold">Your account</h2><button class="btn2" onclick="closeAuth()">Close</button></div>
-    <div id="auth-forms" class="space-y-2">
-      <button class="btn w-full" onclick="authGoogle()">Continue with Google</button>
-      <p class="text-center text-xs text-[#9fb39a]">or use email</p>
-      <input id="au-email" type="email" autocomplete="email" placeholder="Email" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
-      <input id="au-pass" type="password" autocomplete="current-password" placeholder="Password (6+ characters)" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
-      <div class="flex gap-2"><button class="btn flex-1" onclick="authEmail(false)">Sign in</button><button class="btn2 flex-1" onclick="authEmail(true)">Create account</button></div>
-      <p class="text-xs text-[#9fb39a]">Signing in saves your list online, so it follows you to any device.</p>
-    </div>
-    <div id="auth-off" class="hidden text-sm text-[#cfdccb] panel rounded-xl p-3">Online sign-in is not switched on for this site yet. Your list is saved in this browser. Use the backup buttons below to move it to another device.</div>
-    <div class="border-t border-[#1d2a1d] pt-3 space-y-2">
-      <p class="font-bold text-sm">Backup</p>
-      <div class="flex flex-wrap gap-2 items-center"><button class="btn2 text-sm" onclick="exportData()">Download backup</button>
-      <label class="btn2 text-sm cursor-pointer">Import backup<input type="file" accept="application/json" class="hidden" onchange="importData(this)"></label></div>
-    </div>
-  </div>
+  <div class="panel rounded-2xl max-w-sm mx-auto my-8 p-5 space-y-4" role="dialog" aria-modal="true" aria-label="Account">
+    <div class="flex justify-between items-center"><h2 class="text-xl font-extrabold">Your account</h2><button class="btn2" onclick="closeAuth()">Close</button></div>
+    <div id="auth-forms" class="space-y-2">
+      <button class="btn w-full" onclick="authGoogle()">Continue with Google</button>
+      <p class="text-center text-xs text-[#9fb39a]">or use email</p>
+      <input id="au-email" type="email" autocomplete="email" placeholder="Email" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
+      <input id="au-pass" type="password" autocomplete="current-password" placeholder="Password (6+ characters)" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
+      <div class="flex gap-2"><button class="btn flex-1" onclick="authEmail(false)">Sign in</button><button class="btn2 flex-1" onclick="authEmail(true)">Create account</button></div>
+      <p class="text-xs text-[#9fb39a]">Signing in saves your list online, so it follows you to any device.</p>
+    </div>
+    <div id="auth-off" class="hidden text-sm text-[#cfdccb] panel rounded-xl p-3">Online sign-in is not switched on for this site yet. Your list is saved in this browser. Use the backup buttons below to move it to another device.</div>
+    <div class="border-t border-[#1d2a1d] pt-3 space-y-2">
+      <p class="font-bold text-sm">Backup</p>
+      <div class="flex flex-wrap gap-2 items-center"><button class="btn2 text-sm" onclick="exportData()">Download backup</button>
+      <label class="btn2 text-sm cursor-pointer">Import backup<input type="file" accept="application/json" class="hidden" onchange="importData(this)"></label></div>
+    </div>
+  </div>
 </div>
 
 <div id="toast" class="fixed bottom-20 md:bottom-4 left-3 right-3 sm:left-auto sm:right-5 z-50 text-center hidden panel border-green-500 rounded-xl px-4 py-2 text-sm"></div>
@@ -239,13 +211,13 @@ header,main,footer{position:relative;z-index:10}
 <script>
 /* Firebase web config for online sign-in. */
 window.FIREBASE_CONFIG={
-  apiKey:"AIzaSyCnJCDcAxu9ekD_nyogYHC_VGiuK9x7HeY",
-  authDomain:"kurowatch26.firebaseapp.com",
-  projectId:"kurowatch26",
-  storageBucket:"kurowatch26.firebasestorage.app",
-  messagingSenderId:"532286663353",
-  appId:"1:532286663353:web:cb5be4df6681f28731c968",
-  measurementId:"G-S8KV6BF6NX"
+  apiKey:"AIzaSyCnJCDcAxu9ekD_nyogYHC_VGiuK9x7HeY",
+  authDomain:"kurowatch26.firebaseapp.com",
+  projectId:"kurowatch26",
+  storageBucket:"kurowatch26.firebasestorage.app",
+  messagingSenderId:"532286663353",
+  appId:"1:532286663353:web:cb5be4df6681f28731c968",
+  measurementId:"G-S8KV6BF6NX"
 };
 </script>
 <script>
@@ -257,314 +229,296 @@ const cache={};
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
 async function api(path,tries=3){
-  if(cache[path])return cache[path];
-  const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),8000);
-  let r;try{r=await fetch('https://api.jikan.moe/v4'+path,{signal:ctl.signal})}finally{clearTimeout(to)}
-  if(r.status===429&&tries>0){await sleep(1200);return api(path,tries-1)}
-  if(!r.ok)throw new Error('Request failed ('+r.status+')');
-  const j=await r.json();cache[path]=j;return j;
+  if(cache[path])return cache[path];
+  const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),8000);
+  let r;try{r=await fetch('https://api.jikan.moe/v4'+path,{signal:ctl.signal})}finally{clearTimeout(to)}
+  if(r.status===429&&tries>0){await sleep(1200);return api(path,tries-1)}
+  if(!r.ok)throw new Error('Request failed ('+r.status+')');
+  const j=await r.json();cache[path]=j;return j;
 }
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.remove('hidden');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.add('hidden'),2200)}
 const name=a=>a.title_english||a.title;
 const pic=a=>a.images?.jpg?.large_image_url||a.images?.jpg?.image_url||'';
 
 function card(a){
-  const inList=list[a.mal_id];
-  return `<button onclick="openDetail(${a.mal_id})" class="card rise text-left group panel rounded-xl overflow-hidden hover:border-green-500">
-    <div class="relative aspect-[3/4] bg-black">
-      <img loading="lazy" src="${esc(pic(a))}" alt="${esc(name(a))} cover" class="w-full h-full object-cover"><span class="shine"></span>
-      ${a.score?`<span class="absolute top-2 left-2 bg-black/80 text-green-400 text-xs font-bold px-2 py-0.5 rounded">${a.score}</span>`:''}
-      ${inList?`<span class="absolute top-2 right-2 bg-green-500 text-black text-xs font-bold px-2 py-0.5 rounded">${esc(inList.status)}</span>`:''}
-    </div>
-    <div class="p-2.5"><h3 class="text-sm font-bold clamp2">${esc(name(a))}</h3>
-    <p class="text-xs text-[#9fb39a] mt-1">${esc(a.type||'')}${a.episodes?' - '+a.episodes+' eps':''}</p></div></button>`;
+  const inList=list[a.mal_id];
+  return `<button onclick="openDetail(${a.mal_id})" class="card rise text-left group panel rounded-xl overflow-hidden hover:border-green-500">
+    <div class="relative aspect-[3/4] bg-black">
+      <img loading="lazy" src="${esc(pic(a))}" alt="${esc(name(a))} cover" class="w-full h-full object-cover"><span class="shine"></span>
+      ${a.score?`<span class="absolute top-2 left-2 bg-black/80 text-green-400 text-xs font-bold px-2 py-0.5 rounded">${a.score}</span>`:''}
+      ${inList?`<span class="absolute top-2 right-2 bg-green-500 text-black text-xs font-bold px-2 py-0.5 rounded">${esc(inList.status)}</span>`:''}
+    </div>
+    <div class="p-2.5"><h3 class="text-sm font-bold clamp2">${esc(name(a))}</h3>
+    <p class="text-xs text-[#9fb39a] mt-1">${esc(a.type||'')}${a.episodes?' - '+a.episodes+' eps':''}</p></div></button>`;
 }
 function fill(el,items){
-  const seen=new Set();
-  items=items.filter(a=>!seen.has(a.mal_id)&&seen.add(a.mal_id));
-  el.innerHTML=items.length?items.map(card).join(''):'<p class="text-[#9fb39a] col-span-full">No results. Try another title.</p>';
-  stagger(el);
+  const seen=new Set();
+  items=items.filter(a=>!seen.has(a.mal_id)&&seen.add(a.mal_id));
+  el.innerHTML=items.length?items.map(card).join(''):'<p class="text-[#9fb39a] col-span-full">No results. Try another title.</p>';
+  stagger(el);
 }
 function stagger(el){[...el.children].forEach((c,i)=>c.style.animationDelay=Math.min(i,14)*45+'ms')}
 function skeleton(el){el.innerHTML=Array(12).fill('<div class="aspect-[3/4] rounded-xl bg-[#0d130d] animate-pulse"></div>').join('')}
 
 /* AniList backup source */
 async function gql(query,variables){
-  const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),10000);
-  try{
-    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,variables}),signal:ctl.signal});
-    if(!r.ok)throw new Error('AniList '+r.status);
-    const j=await r.json();if(j.errors)throw new Error(j.errors[0].message);return j.data;
-  }finally{clearTimeout(to)}
+  const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),10000);
+  try{
+    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,variables}),signal:ctl.signal});
+    if(!r.ok)throw new Error('AniList '+r.status);
+    const j=await r.json();if(j.errors)throw new Error(j.errors[0].message);return j.data;
+  }finally{clearTimeout(to)}
 }
 const AL_F='id idMal isAdult title{romaji english} coverImage{large} averageScore episodes format status seasonYear genres studios(isMain:true){nodes{name}} description(asHtml:false) trailer{id site} externalLinks{site url type}';
 function fromAL(m){
-  const yt=m.trailer&&m.trailer.site==='youtube'?m.trailer.id:null;
-  return {mal_id:m.idMal||-m.id,title:m.title.romaji,title_english:m.title.english,
-    images:{jpg:{large_image_url:m.coverImage.large}},score:m.averageScore?+(m.averageScore/10).toFixed(1):null,
-    episodes:m.episodes,type:(m.format||'').replace('_',' '),status:m.status,year:m.seasonYear,
-    synopsis:(m.description||'').replace(/<[^>]*>/g,' '),genres:(m.genres||[]).map(g=>({name:g})),
-    studios:((m.studios&&m.studios.nodes)||[]).map(x=>({name:x.name})),
-    trailer:yt?{embed_url:'https://www.youtube.com/embed/'+yt}:null,
-    streaming:(m.externalLinks||[]).filter(l=>l.type==='STREAMING').map(l=>({name:l.site,url:l.url}))};
+  const yt=m.trailer&&m.trailer.site==='youtube'?m.trailer.id:null;
+  return {mal_id:m.idMal||-m.id,title:m.title.romaji,title_english:m.title.english,
+    images:{jpg:{large_image_url:m.coverImage.large}},score:m.averageScore?+(m.averageScore/10).toFixed(1):null,
+    episodes:m.episodes,type:(m.format||'').replace('_',' '),status:m.status,year:m.seasonYear,
+    synopsis:(m.description||'').replace(/<[^>]*>/g,' '),genres:(m.genres||[]).map(g=>({name:g})),
+    studios:((m.studios&&m.studios.nodes)||[]).map(x=>({name:x.name})),
+    trailer:yt?{embed_url:'https://www.youtube.com/embed/'+yt}:null,
+    streaming:(m.externalLinks||[]).filter(l=>l.type==='STREAMING').map(l=>({name:l.site,url:l.url}))};
 }
 async function alRun(filter,decl,vars){
-  const d=await gql(`query${decl}{Page(perPage:36){${filter}}}`,vars||{});
-  const arr=d.Page.media||(d.Page.airingSchedules||[]).map(x=>x.media);
-  return arr.filter(m=>m&&!m.isAdult).map(fromAL);
+  const d=await gql(`query${decl}{Page(perPage:36){${filter}}}`,vars||{});
+  const arr=d.Page.media||(d.Page.airingSchedules||[]).map(x=>x.media);
+  return arr.filter(m=>m&&!m.isAdult).map(fromAL);
 }
 function failBox(msg,retry){return `<div class="col-span-full panel rounded-xl p-5"><p class="font-bold">Could not load anime</p><p class="text-sm text-[#9fb39a] my-2">${esc(msg)}. Check your internet connection, then retry.</p><button class="btn" onclick="${retry}">Retry</button></div>`}
 
 /* views */
 function show(v){
-  ['discover','schedule','mylist','player'].forEach(x=>$('#v-'+x).classList.toggle('hidden',x!==v));
-  document.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
-  if(v==='schedule'&&!$('#days').children.length)initSchedule();
-  if(v==='mylist')renderList();
-  scrollTo(0,0);
+  ['discover','schedule','mylist','player'].forEach(x=>$('#v-'+x).classList.toggle('hidden',x!==v));
+  document.querySelectorAll('[data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===v));
+  if(v==='schedule'&&!$('#days').children.length)initSchedule();
+  if(v==='mylist')renderList();
+  scrollTo(0,0);
 }
 
 /* discover */
 const feeds={
- airing:['Airing now','/top/anime?filter=airing&limit=24&sfw=true',`media(type:ANIME,status:RELEASING,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`],
- popular:['Most popular','/top/anime?filter=bypopularity&limit=24&sfw=true',`media(type:ANIME,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`],
- top:['Top rated','/top/anime?limit=24&sfw=true',`media(type:ANIME,sort:SCORE_DESC,isAdult:false){${AL_F}}`],
- upcoming:['Upcoming','/top/anime?filter=upcoming&limit=24&sfw=true',`media(type:ANIME,status:NOT_YET_RELEASED,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`]};
+ airing:['Airing now','/top/anime?filter=airing&limit=24&sfw=true',`media(type:ANIME,status:RELEASING,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`],
+ popular:['Most popular','/top/anime?filter=bypopularity&limit=24&sfw=true',`media(type:ANIME,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`],
+ top:['Top rated','/top/anime?limit=24&sfw=true',`media(type:ANIME,sort:SCORE_DESC,isAdult:false){${AL_F}}`],
+ upcoming:['Upcoming','/top/anime?filter=upcoming&limit=24&sfw=true',`media(type:ANIME,status:NOT_YET_RELEASED,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`]};
 async function loadDiscover(k,btn){
-  if(btn){document.querySelectorAll('#d-chips .chip').forEach(c=>c.classList.toggle('on',c===btn))}
-  $('#d-title').textContent=feeds[k][0];$('#status').textContent='';skeleton($('#grid'));
-  try{
-    let items;
-    try{items=(await api(feeds[k][1])).data}catch(e){items=await alRun(feeds[k][2],'')}
-    fill($('#grid'),items);renderHero(items,feeds[k][0]);
-  }catch(e){$('#grid').innerHTML=failBox(e.message,`loadDiscover('${k}')`)}
+  if(btn){document.querySelectorAll('#d-chips .chip').forEach(c=>c.classList.toggle('on',c===btn))}
+  $('#d-title').textContent=feeds[k][0];$('#status').textContent='';skeleton($('#grid'));
+  try{
+    let items;
+    try{items=(await api(feeds[k][1])).data}catch(e){items=await alRun(feeds[k][2],'')}
+    fill($('#grid'),items);renderHero(items,feeds[k][0]);
+  }catch(e){$('#grid').innerHTML=failBox(e.message,`loadDiscover('${k}')`)}
 }
 async function doSearch(e){
-  e.preventDefault();const q=$('#q').value.trim();if(!q)return;
-  show('discover');document.querySelectorAll('#d-chips .chip').forEach(c=>c.classList.remove('on'));
-  $('#d-title').textContent='Results for "'+q+'"';clearInterval(heroT);$('#hero').classList.add('hidden');$('#status').textContent='';skeleton($('#grid'));
-  try{
-    let items;
-    try{items=(await api('/anime?q='+encodeURIComponent(q)+'&limit=24&sfw=true&order_by=popularity')).data}
-    catch(err){items=await alRun(`media(type:ANIME,search:$q,isAdult:false,sort:SEARCH_MATCH){${AL_F}}`,'($q:String)',{q})}
-    fill($('#grid'),items);
-  }catch(err){$('#grid').innerHTML=failBox(err.message,"doSearch(new Event('submit'))")}
+  e.preventDefault();const q=$('#q').value.trim();if(!q)return;
+  show('discover');document.querySelectorAll('#d-chips .chip').forEach(c=>c.classList.remove('on'));
+  $('#d-title').textContent='Results for "'+q+'"';clearInterval(heroT);$('#hero').classList.add('hidden');$('#status').textContent='';skeleton($('#grid'));
+  try{
+    let items;
+    try{items=(await api('/anime?q='+encodeURIComponent(q)+'&limit=24&sfw=true&order_by=popularity')).data}
+    catch(err){items=await alRun(`media(type:ANIME,search:$q,isAdult:false,sort:SEARCH_MATCH){${AL_F}}`,'($q:String)',{q})}
+    fill($('#grid'),items);
+  }catch(err){$('#grid').innerHTML=failBox(err.message,"doSearch(new Event('submit'))")}
 }
 
 /* schedule */
 const days=['monday','tuesday','wednesday','thursday','friday','saturday','sunday'];
 function initSchedule(){
-  const today=days[(new Date().getDay()+6)%7];
-  $('#days').innerHTML=days.map(d=>`<button class="chip ${d===today?'on':''}" data-d="${d}" onclick="loadDay('${d}')">${d[0].toUpperCase()+d.slice(1)}</button>`).join('');
-  loadDay(today);
+  const today=days[(new Date().getDay()+6)%7];
+  $('#days').innerHTML=days.map(d=>`<button class="chip ${d===today?'on':''}" data-d="${d}" onclick="loadDay('${d}')">${d[0].toUpperCase()+d.slice(1)}</button>`).join('');
+  loadDay(today);
 }
 function dayWindow(d){
-  const n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
-  t.setDate(t.getDate()+((days.indexOf(d)-((n.getDay()+6)%7)+7)%7));
-  const a=Math.floor(t/1000);return [a,a+86400];
+  const n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+  t.setDate(t.getDate()+((days.indexOf(d)-((n.getDay()+6)%7)+7)%7));
+  const a=Math.floor(t/1000);return [a,a+86400];
 }
 async function loadDay(d){
-  document.querySelectorAll('#days .chip').forEach(c=>c.classList.toggle('on',c.dataset.d===d));
-  skeleton($('#sgrid'));
-  try{
-    let items;
-    try{items=(await api('/schedules?filter='+d+'&limit=24&sfw=true')).data}
-    catch(e){const [x,y]=dayWindow(d);items=await alRun(`airingSchedules(airingAt_greater:$a,airingAt_lesser:$b,sort:TIME){media{${AL_F}}}`,'($a:Int,$b:Int)',{a:x,b:y})}
-    fill($('#sgrid'),items);
-  }catch(e){$('#sgrid').innerHTML=failBox(e.message,`loadDay('${d}')`)}
+  document.querySelectorAll('#days .chip').forEach(c=>c.classList.toggle('on',c.dataset.d===d));
+  skeleton($('#sgrid'));
+  try{
+    let items;
+    try{items=(await api('/schedules?filter='+d+'&limit=24&sfw=true')).data}
+    catch(e){const [x,y]=dayWindow(d);items=await alRun(`airingSchedules(airingAt_greater:$a,airingAt_lesser:$b,sort:TIME){media{${AL_F}}}`,'($a:Int,$b:Int)',{a:x,b:y})}
+    fill($('#sgrid'),items);
+  }catch(e){$('#sgrid').innerHTML=failBox(e.message,`loadDay('${d}')`)}
 }
 
 async function getDetail(id){
-  if(id>0){try{return (await api('/anime/'+id+'/full')).data}catch(e){}}
-  const d=await gql(`query($i:Int){Media(${id>0?'idMal':'id'}:$i,type:ANIME){${AL_F}}}`,{i:Math.abs(id)});
-  return fromAL(d.Media);
+  if(id>0){try{return (await api('/anime/'+id+'/full')).data}catch(e){}}
+  const d=await gql(`query($i:Int){Media(${id>0?'idMal':'id'}:$i,type:ANIME){${AL_F}}}`,{i:Math.abs(id)});
+  return fromAL(d.Media);
 }
 
-/* detail & shareable hash routing */
+/* detail */
 async function openDetail(id){
-  if(location.hash !== '#anime/' + id){
-    history.pushState(null, '', '#anime/' + id);
-  }
-  const m=$('#modal');m.classList.remove('hidden');
-  $('#modal-body').innerHTML='<p class="p-6 text-[#9fb39a]">Loading...</p>';
-  try{
-    const a=await getDetail(id);
-    hist=[{id:a.mal_id,t:name(a),i:pic(a)},...hist.filter(h=>h.id!==a.mal_id)].slice(0,24);store.set('kw_hist',hist);
-    const stream=(a.streaming||[]).map(s=>`<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="${esc(s.url)}">${esc(s.name)}</a>`).join('')
-      ||`<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.crunchyroll.com/search?q=${encodeURIComponent(name(a))}">Search Crunchyroll</a>
-         <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.netflix.com/search?q=${encodeURIComponent(name(a))}">Search Netflix</a>`;
-    let trailer='';
-    const emb=a.trailer?.embed_url;
-    if(emb&&/^https:\/\/www\.youtube\.com\/embed\//.test(emb))
-      trailer=`<div class="aspect-video rounded-xl overflow-hidden bg-black mt-4"><iframe class="w-full h-full" src="${esc(emb.replace('autoplay=1','autoplay=0'))}" title="Trailer" allowfullscreen loading="lazy"></iframe></div>`;
-    const cur=list[a.mal_id]||{status:'',ep:0};
-    $('#modal-body').innerHTML=`
-      <div class="flex justify-between items-start gap-3">
-        <h2 class="text-xl sm:text-2xl font-extrabold min-w-0 break-words">${esc(name(a))}</h2>
-        <button class="btn2" onclick="closeModal()" aria-label="Close">Close</button></div>
-      <div class="flex gap-4 mt-4">
-        <img src="${esc(pic(a))}" alt="" class="w-28 sm:w-40 rounded-xl self-start">
-        <div class="space-y-2 text-sm">
-          <p class="text-[#9fb39a]">${esc(a.type||'')}${a.episodes?' - '+a.episodes+' episodes':''}${a.year?' - '+a.year:''}${a.status?' - '+esc(a.status):''}</p>
-          ${a.score?`<p>Score <b class="text-green-400">${a.score}</b> (${(a.scored_by||0).toLocaleString()} votes)</p>`:''}
-          <p class="text-[#9fb39a]">${(a.studios||[]).map(s=>esc(s.name)).join(', ')}</p>
-          <div class="flex flex-wrap gap-1.5">${(a.genres||[]).map(g=>`<span class="chip">${esc(g.name)}</span>`).join('')}</div>
-        </div></div>
-      <p class="text-sm leading-relaxed mt-4 text-[#cfdccb]">${esc(a.synopsis||'No synopsis available yet.')}</p>
-      ${trailer}
-      <h3 class="font-bold mt-5 mb-2">Watch legally</h3>
-      <div class="flex flex-wrap gap-2">${stream}<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=${encodeURIComponent(name(a)+' full episode Ani-One Asia')}">Find full episodes on YouTube</a></div>
-      <h3 class="font-bold mt-5 mb-2">Track it</h3>
-      <div class="flex flex-wrap items-center gap-2" id="track">${trackUI(a.mal_id,cur,a)}</div>`;
-    window._cur=a;
-  }catch(e){$('#modal-body').innerHTML=`<p class="p-6">Could not load this anime (${esc(e.message)}). <button class="btn2" onclick="closeModal()">Close</button></p>`}
+  const m=$('#modal');m.classList.remove('hidden');
+  $('#modal-body').innerHTML='<p class="p-6 text-[#9fb39a]">Loading...</p>';
+  try{
+    const a=await getDetail(id);
+    hist=[{id:a.mal_id,t:name(a),i:pic(a)},...hist.filter(h=>h.id!==a.mal_id)].slice(0,24);store.set('kw_hist',hist);
+    const stream=(a.streaming||[]).map(s=>`<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="${esc(s.url)}">${esc(s.name)}</a>`).join('')
+      ||`<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.crunchyroll.com/search?q=${encodeURIComponent(name(a))}">Search Crunchyroll</a>
+         <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.netflix.com/search?q=${encodeURIComponent(name(a))}">Search Netflix</a>`;
+    let trailer='';
+    const emb=a.trailer?.embed_url;
+    if(emb&&/^https:\/\/www\.youtube\.com\/embed\//.test(emb))
+      trailer=`<div class="aspect-video rounded-xl overflow-hidden bg-black mt-4"><iframe class="w-full h-full" src="${esc(emb.replace('autoplay=1','autoplay=0'))}" title="Trailer" allowfullscreen loading="lazy"></iframe></div>`;
+    const cur=list[a.mal_id]||{status:'',ep:0};
+    $('#modal-body').innerHTML=`
+      <div class="flex justify-between items-start gap-3">
+        <h2 class="text-xl sm:text-2xl font-extrabold min-w-0 break-words">${esc(name(a))}</h2>
+        <button class="btn2" onclick="closeModal()" aria-label="Close">Close</button></div>
+      <div class="flex gap-4 mt-4">
+        <img src="${esc(pic(a))}" alt="" class="w-28 sm:w-40 rounded-xl self-start">
+        <div class="space-y-2 text-sm">
+          <p class="text-[#9fb39a]">${esc(a.type||'')}${a.episodes?' - '+a.episodes+' episodes':''}${a.year?' - '+a.year:''}${a.status?' - '+esc(a.status):''}</p>
+          ${a.score?`<p>Score <b class="text-green-400">${a.score}</b> (${(a.scored_by||0).toLocaleString()} votes)</p>`:''}
+          <p class="text-[#9fb39a]">${(a.studios||[]).map(s=>esc(s.name)).join(', ')}</p>
+          <div class="flex flex-wrap gap-1.5">${(a.genres||[]).map(g=>`<span class="chip">${esc(g.name)}</span>`).join('')}</div>
+        </div></div>
+      <p class="text-sm leading-relaxed mt-4 text-[#cfdccb]">${esc(a.synopsis||'No synopsis available yet.')}</p>
+      ${trailer}
+      <h3 class="font-bold mt-5 mb-2">Watch legally</h3>
+      <div class="flex flex-wrap gap-2">${stream}<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=${encodeURIComponent(name(a)+' full episode Ani-One Asia')}">Find full episodes on YouTube</a></div>
+      <h3 class="font-bold mt-5 mb-2">Track it</h3>
+      <div class="flex flex-wrap items-center gap-2" id="track">${trackUI(a.mal_id,cur,a)}</div>`;
+    window._cur=a;
+  }catch(e){$('#modal-body').innerHTML=`<p class="p-6">Could not load this anime (${esc(e.message)}). <button class="btn2" onclick="closeModal()">Close</button></p>`}
 }
-
 function trackUI(id,cur,a){
-  const opts=['Watching','Plan to watch','Completed','Dropped'].map(s=>`<option ${cur.status===s?'selected':''}>${s}</option>`).join('');
-  return `<select onchange="setStatus(${id},this.value)" class="bg-black border border-[#1d2a1d] rounded-lg px-3 py-2" aria-label="Status">
-      <option value="">Not on my list</option>${opts}</select>
-    ${cur.status?`<span class="text-sm text-[#9fb39a] ml-2">Episode</span>
-    <button class="btn2" onclick="bump(${id},-1)" aria-label="Previous episode">-</button>
-    <b id="epn" class="w-8 text-center">${cur.ep||0}</b>
-    <button class="btn2" onclick="bump(${id},1)" aria-label="Next episode">+</button>`:''}`;
+  const opts=['Watching','Plan to watch','Completed','Dropped'].map(s=>`<option ${cur.status===s?'selected':''}>${s}</option>`).join('');
+  return `<select onchange="setStatus(${id},this.value)" class="bg-black border border-[#1d2a1d] rounded-lg px-3 py-2" aria-label="Status">
+      <option value="">Not on my list</option>${opts}</select>
+    ${cur.status?`<span class="text-sm text-[#9fb39a] ml-2">Episode</span>
+    <button class="btn2" onclick="bump(${id},-1)" aria-label="Previous episode">-</button>
+    <b id="epn" class="w-8 text-center">${cur.ep||0}</b>
+    <button class="btn2" onclick="bump(${id},1)" aria-label="Next episode">+</button>`:''}`;
 }
 function setStatus(id,s){
-  const a=window._cur;
-  if(!s){delete list[id]}else{list[id]={...(list[id]||{ep:0}),u:Date.now(),status:s,t:name(a),i:pic(a),n:a.episodes||0}}
-  store.set('kw_list',list);$('#track').innerHTML=trackUI(id,list[id]||{status:'',ep:0},a);toast(s?'Saved to '+s:'Removed from list');
+  const a=window._cur;
+  if(!s){delete list[id]}else{list[id]={...(list[id]||{ep:0}),u:Date.now(),status:s,t:name(a),i:pic(a),n:a.episodes||0}}
+  store.set('kw_list',list);$('#track').innerHTML=trackUI(id,list[id]||{status:'',ep:0},a);toast(s?'Saved to '+s:'Removed from list');
 }
 function bump(id,d){
-  const it=list[id];if(!it)return;
-  it.u=Date.now();it.ep=Math.max(0,Math.min(it.n||9999,(it.ep||0)+d));
-  if(it.n&&it.ep>=it.n)it.status='Completed';
-  store.set('kw_list',list);$('#track').innerHTML=trackUI(id,it,window._cur);
+  const it=list[id];if(!it)return;
+  it.u=Date.now();it.ep=Math.max(0,Math.min(it.n||9999,(it.ep||0)+d));
+  if(it.n&&it.ep>=it.n)it.status='Completed';
+  store.set('kw_list',list);$('#track').innerHTML=trackUI(id,it,window._cur);
 }
-function closeModal(){
-  $('#modal').classList.add('hidden');
-  $('#modal-body').innerHTML='';
-  if(location.hash.startsWith('#anime/')){
-    history.pushState(null, '', location.pathname);
-  }
-  if(!$('#v-mylist').classList.contains('hidden'))renderList();
-}
+function closeModal(){$('#modal').classList.add('hidden');$('#modal-body').innerHTML='';if(!$('#v-mylist').classList.contains('hidden'))renderList()}
 addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-
-/* handle direct links on load/hash change */
-function checkHash(){
-  const m = location.hash.match(/^#anime\/(\d+)/);
-  if(m && m[1]){
-    openDetail(parseInt(m[1], 10));
-  }
-}
-addEventListener('hashchange', checkHash);
 
 /* my list */
 function renderList(){
-  const groups=['Watching','Plan to watch','Completed','Dropped'];
-  const entries=Object.entries(list);
-  $('#mylist-body').innerHTML=entries.length?groups.map(g=>{
-    const items=entries.filter(([,v])=>v.status===g);
-    if(!items.length)return '';
-    return `<div><h3 class="text-xl font-extrabold mb-3">${g} <span class="text-sm text-[#9fb39a]">${items.length}</span></h3>
-      <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-3">${items.map(([id,v])=>`
-        <button onclick="openDetail(${id})" class="text-left">
-          <img src="${esc(v.i)}" alt="${esc(v.t)}" class="rounded-lg aspect-[3/4] object-cover w-full border border-[#1d2a1d]">
-          <p class="text-xs font-bold clamp2 mt-1">${esc(v.t)}</p>
-          <p class="text-xs text-green-400">Ep ${v.ep\vert{}\vert{}0}${v.n?' / '+v.n:''}</p></button>`).join('')}</div></div>`}).join('')
-    :'<p class="text-[#9fb39a]">Your list is empty. Open any anime and choose a status to add it here.</p>';
-  $('#hist').innerHTML=hist.length?hist.map(h=>`<button onclick="openDetail(${h.id})"><img src="${esc(h.i)}" alt="${esc(h.t)}" class="rounded-lg aspect-[3/4] object-cover w-full border border-[#1d2a1d]"></button>`).join(''):'<p class="text-[#9fb39a] col-span-full text-sm">Nothing viewed yet.</p>';
+  const groups=['Watching','Plan to watch','Completed','Dropped'];
+  const entries=Object.entries(list);
+  $('#mylist-body').innerHTML=entries.length?groups.map(g=>{
+    const items=entries.filter(([,v])=>v.status===g);
+    if(!items.length)return '';
+    return `<div><h3 class="text-xl font-extrabold mb-3">${g} <span class="text-sm text-[#9fb39a]">${items.length}</span></h3>
+      <div class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 gap-3">${items.map(([id,v])=>`
+        <button onclick="openDetail(${id})" class="text-left">
+          <img src="${esc(v.i)}" alt="${esc(v.t)}" class="rounded-lg aspect-[3/4] object-cover w-full border border-[#1d2a1d]">
+          <p class="text-xs font-bold clamp2 mt-1">${esc(v.t)}</p>
+          <p class="text-xs text-green-400">Ep ${v.ep||0}${v.n?' / '+v.n:''}</p></button>`).join('')}</div></div>`}).join('')
+    :'<p class="text-[#9fb39a]">Your list is empty. Open any anime and choose a status to add it here.</p>';
+  $('#hist').innerHTML=hist.length?hist.map(h=>`<button onclick="openDetail(${h.id})"><img src="${esc(h.i)}" alt="${esc(h.t)}" class="rounded-lg aspect-[3/4] object-cover w-full border border-[#1d2a1d]"></button>`).join(''):'<p class="text-[#9fb39a] col-span-full text-sm">Nothing viewed yet.</p>';
 }
 function clearHist(){hist=[];store.set('kw_hist',hist);renderList();toast('History cleared')}
 
 /* player */
 function embed(id,list){
-  const src=id?`https://www.youtube-nocookie.com/embed/${id}${list?'?list='+list:''}`:`https://www.youtube-nocookie.com/embed/videoseries?list=${list}`;
-  $('#stage').innerHTML=`<iframe class="w-full h-full" src="${src}" title="Video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
-  $('#stage').scrollIntoView({behavior:'smooth',block:'center'});
+  const src=id?`https://www.youtube-nocookie.com/embed/${id}${list?'?list='+list:''}`:`https://www.youtube-nocookie.com/embed/videoseries?list=${list}`;
+  $('#stage').innerHTML=`<iframe class="w-full h-full" src="${src}" title="Video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+  $('#stage').scrollIntoView({behavior:'smooth',block:'center'});
 }
 function playYT(e){
-  e.preventDefault();const u=$('#yt').value;
-  const v=u.match(/(?:[?&]v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/),l=u.match(/[?&]list=([\w-]+)/);
-  (v||l)?embed(v&&v[1],l&&l[1]):toast('That does not look like a YouTube link');
+  e.preventDefault();const u=$('#yt').value;
+  const v=u.match(/(?:[?&]v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/),l=u.match(/[?&]list=([\w-]+)/);
+  (v||l)?embed(v&&v[1],l&&l[1]):toast('That does not look like a YouTube link');
 }
 function ytFind(e){
-  e.preventDefault();const t=$('#ytq').value.trim();if(!t)return;
-  window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(t+' full episode '+$('#ytch').value),'_blank','noopener');
+  e.preventDefault();const t=$('#ytq').value.trim();if(!t)return;
+  window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(t+' full episode '+$('#ytch').value),'_blank','noopener');
 }
 function playFile(inp){
-  const f=inp.files[0];if(!f)return;
-  const v=document.createElement('video');v.controls=true;v.playsInline=true;v.className='w-full h-full';v.src=URL.createObjectURL(f);
-  $('#stage').innerHTML='';$('#stage').appendChild(v);v.play().catch(()=>{});
+  const f=inp.files[0];if(!f)return;
+  const v=document.createElement('video');v.controls=true;v.playsInline=true;v.className='w-full h-full';v.src=URL.createObjectURL(f);
+  $('#stage').innerHTML='';$('#stage').appendChild(v);v.play().catch(()=>{});
 }
+
 
 /* account + backup */
 let cloudUser=null;
 function onUser(u){cloudUser=u;$('#auth-btn').textContent=u?'Sign out ('+(u.email||'account').split('@')[0]+')':'Sign in'}
 function authClick(){
-  if(cloudUser){window.cloudAuth.out().then(()=>toast('Signed out'));return}
-  const on=!!window.cloudAuth;$('#auth-forms').classList.toggle('hidden',!on);$('#auth-off').classList.toggle('hidden',on);
-  $('#auth-modal').classList.remove('hidden');
+  if(cloudUser){window.cloudAuth.out().then(()=>toast('Signed out'));return}
+  const on=!!window.cloudAuth;$('#auth-forms').classList.toggle('hidden',!on);$('#auth-off').classList.toggle('hidden',on);
+  $('#auth-modal').classList.remove('hidden');
 }
 function closeAuth(){$('#auth-modal').classList.add('hidden')}
 const authMsg=e=>({'auth/invalid-credential':'Wrong email or password','auth/email-already-in-use':'That email already has an account. Choose Sign in','auth/weak-password':'Use a password with at least 6 characters','auth/invalid-email':'Enter a valid email address','auth/popup-closed-by-user':'Sign-in window was closed'}[e.code]||'Sign-in failed. Try again');
 async function authGoogle(){try{await window.cloudAuth.google();closeAuth();toast('Signed in')}catch(e){toast(authMsg(e))}}
 async function authEmail(create){
-  const em=$('#au-email').value.trim(),pw=$('#au-pass').value;
-  if(!em||!pw){toast('Enter your email and password');return}
-  try{await window.cloudAuth[create?'create':'email'](em,pw);closeAuth();toast(create?'Account created':'Signed in')}catch(e){toast(authMsg(e))}
+  const em=$('#au-email').value.trim(),pw=$('#au-pass').value;
+  if(!em||!pw){toast('Enter your email and password');return}
+  try{await window.cloudAuth[create?'create':'email'](em,pw);closeAuth();toast(create?'Account created':'Signed in')}catch(e){toast(authMsg(e))}
 }
 function mergeRemote(d){
-  const r=d.list||{};
-  for(const id in r){if(!list[id]||(r[id].u||0)>=(list[id].u||0))list[id]=r[id]}
-  const seen=new Set(hist.map(h=>h.id));(d.hist||[]).forEach(h=>{if(!seen.has(h.id)){hist.push(h);seen.add(h.id)}});hist=hist.slice(0,24);
-  store.set('kw_list',list);store.set('kw_hist',hist);
-  if(!$('#v-mylist').classList.contains('hidden'))renderList();
+  const r=d.list||{};
+  for(const id in r){if(!list[id]||(r[id].u||0)>=(list[id].u||0))list[id]=r[id]}
+  const seen=new Set(hist.map(h=>h.id));(d.hist||[]).forEach(h=>{if(!seen.has(h.id)){hist.push(h);seen.add(h.id)}});hist=hist.slice(0,24);
+  store.set('kw_list',list);store.set('kw_hist',hist);
+  if(!$('#v-mylist').classList.contains('hidden'))renderList();
 }
 function exportData(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({list,hist})],{type:'application/json'}));a.download='kurowatch-backup.json';a.click()}
 function importData(inp){const f=inp.files[0];if(!f)return;f.text().then(t=>{try{mergeRemote(JSON.parse(t));toast('Backup imported')}catch(e){toast('That file is not a valid backup')}})}
 const getList=()=>list,getHist=()=>hist;
 
+
 /* hero banner */
 let heroT,heroI=0,heroN=0;
 function renderHero(items,label){
-  const h=$('#hero');clearInterval(heroT);
-  const list=items.filter(a=>pic(a)).slice(0,5);heroN=list.length;
-  if(!heroN){h.classList.add('hidden');return}
-  h.classList.remove('hidden');heroI=0;
-  h.innerHTML=list.map((a,i)=>`<div class="hero-slide ${i?'':'on'}" style="--bg:url('${esc(pic(a))}')"><div class="hero-bg"></div>
-    <div class="flex gap-4 items-end p-4 sm:p-8 h-full">
-      <img src="${esc(pic(a))}" alt="" class="w-24 sm:w-40 rounded-xl shadow-2xl shrink-0 border border-white/10">
-      <div class="min-w-0 pb-6 sm:pb-8"><p class="text-green-400 text-sm font-bold">#${i+1} ${esc(label)}${a.score?' - '+a.score+' score':''}</p>
-      <h2 class="text-xl sm:text-4xl font-extrabold clamp2 title-glow">${esc(name(a))}</h2>
-      <p class="hidden sm:block text-sm text-[#cfdccb] clamp3 mt-2 max-w-2xl">${esc(a.synopsis||'')}</p>
-      <button class="btn mt-3" onclick="openDetail(${a.mal_id})">View details</button></div></div></div>`).join('')
-    +`<div class="absolute bottom-3 left-0 right-0 z-10 flex justify-center gap-1.5">${list.map((_,i)=>`<button class="dot ${i?'':'on'}" aria-label="Show slide ${i+1}" onclick="heroGo(${i})"></button>`).join('')}</div>`;
-  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)heroT=setInterval(()=>heroGo((heroI+1)%heroN),6000);
+  const h=$('#hero');clearInterval(heroT);
+  const list=items.filter(a=>pic(a)).slice(0,5);heroN=list.length;
+  if(!heroN){h.classList.add('hidden');return}
+  h.classList.remove('hidden');heroI=0;
+  h.innerHTML=list.map((a,i)=>`<div class="hero-slide ${i?'':'on'}" style="--bg:url('${esc(pic(a))}')"><div class="hero-bg"></div>
+    <div class="flex gap-4 items-end p-4 sm:p-8 h-full">
+      <img src="${esc(pic(a))}" alt="" class="w-24 sm:w-40 rounded-xl shadow-2xl shrink-0 border border-white/10">
+      <div class="min-w-0 pb-6 sm:pb-8"><p class="text-green-400 text-sm font-bold">#${i+1} ${esc(label)}${a.score?' - '+a.score+' score':''}</p>
+      <h2 class="text-xl sm:text-4xl font-extrabold clamp2 title-glow">${esc(name(a))}</h2>
+      <p class="hidden sm:block text-sm text-[#cfdccb] clamp3 mt-2 max-w-2xl">${esc(a.synopsis||'')}</p>
+      <button class="btn mt-3" onclick="openDetail(${a.mal_id})">View details</button></div></div></div>`).join('')
+    +`<div class="absolute bottom-3 left-0 right-0 z-10 flex justify-center gap-1.5">${list.map((_,i)=>`<button class="dot ${i?'':'on'}" aria-label="Show slide ${i+1}" onclick="heroGo(${i})"></button>`).join('')}</div>`;
+  if(!matchMedia('(prefers-reduced-motion:reduce)').matches)heroT=setInterval(()=>heroGo((heroI+1)%heroN),6000);
 }
 function heroGo(i){
-  heroI=i;document.querySelectorAll('.hero-slide').forEach((e,j)=>e.classList.toggle('on',j===i));
-  document.querySelectorAll('#hero .dot').forEach((e,j)=>e.classList.toggle('on',j===i));
+  heroI=i;document.querySelectorAll('.hero-slide').forEach((e,j)=>e.classList.toggle('on',j===i));
+  document.querySelectorAll('#hero .dot').forEach((e,j)=>e.classList.toggle('on',j===i));
 }
 
 /* falling clover leaves */
 (function(){
-  const c=document.getElementById('fx');if(!c||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-  const x=c.getContext('2d'),leaf=new Path2D('M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z');
-  let W,H,P=[];const R=Math.random;
-  function size(){W=c.width=innerWidth;H=c.height=innerHeight;P=Array.from({length:innerWidth<640?8:16},()=>({x:R()*W,y:R()*H,s:.3+R()*.6,v:.25+R()*.45,r:R()*6.28,w:(R()-.5)*.012,a:.05+R()*.1,p:R()*6.28}))}
-  size();addEventListener('resize',size);
-  (function tick(){
-    x.clearRect(0,0,W,H);
-    for(const q of P){
-      q.y+=q.v;q.x+=Math.sin(q.y/60+q.p)*.4;q.r+=q.w;
-      if(q.y>H+40){q.y=-40;q.x=R()*W}
-      x.save();x.translate(q.x,q.y);x.rotate(q.r);x.scale(q.s,q.s);x.fillStyle='rgba(34,197,94,'+q.a+')';
-      for(let i=0;i<5;i++){x.rotate(1.2566);x.fill(leaf)}
-      x.restore();
-    }
-    requestAnimationFrame(tick);
-  })();
+  const c=document.getElementById('fx');if(!c||matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  const x=c.getContext('2d'),leaf=new Path2D('M0 0C-18-6-20-30-7-32C-3-32.5 0-29 0-26C0-29 3-32.5 7-32C20-30 18-6 0 0Z');
+  let W,H,P=[];const R=Math.random;
+  function size(){W=c.width=innerWidth;H=c.height=innerHeight;P=Array.from({length:innerWidth<640?8:16},()=>({x:R()*W,y:R()*H,s:.3+R()*.6,v:.25+R()*.45,r:R()*6.28,w:(R()-.5)*.012,a:.05+R()*.1,p:R()*6.28}))}
+  size();addEventListener('resize',size);
+  (function tick(){
+    x.clearRect(0,0,W,H);
+    for(const q of P){
+      q.y+=q.v;q.x+=Math.sin(q.y/60+q.p)*.4;q.r+=q.w;
+      if(q.y>H+40){q.y=-40;q.x=R()*W}
+      x.save();x.translate(q.x,q.y);x.rotate(q.r);x.scale(q.s,q.s);x.fillStyle='rgba(34,197,94,'+q.a+')';
+      for(let i=0;i<5;i++){x.rotate(1.2566);x.fill(leaf)}
+      x.restore();
+    }
+    requestAnimationFrame(tick);
+  })();
 })();
 
 /* theme */
@@ -572,29 +526,28 @@ function toggleOled(){const on=document.body.classList.toggle('oled');$('#oled')
 if(store.get('kw_oled',false))toggleOled();
 
 loadDiscover('airing');
-checkHash();
 </script>
 <script type="module">
 const cfg=window.FIREBASE_CONFIG;
 if(cfg&&cfg.apiKey&&!cfg.apiKey.startsWith('PASTE')&&!cfg.appId.startsWith('PASTE')){
-  const V='10.12.2',B='https://www.gstatic.com/firebasejs/'+V+'/';
-  const [{initializeApp},A,{getFirestore,doc,getDoc,setDoc}]=await Promise.all([import(B+'firebase-app.js'),import(B+'firebase-auth.js'),import(B+'firebase-firestore.js')]);
-  const app=initializeApp(cfg),auth=A.getAuth(app),db=getFirestore(app);
-  let user=null,timer;
-  window.cloudAuth={
-    google:()=>A.signInWithPopup(auth,new A.GoogleAuthProvider()),
-    email:(e,p)=>A.signInWithEmailAndPassword(auth,e,p),
-    create:(e,p)=>A.createUserWithEmailAndPassword(auth,e,p),
-    out:()=>A.signOut(auth)};
-  window.cloudSave=()=>{
-    if(!user)return;clearTimeout(timer);
-    timer=setTimeout(()=>setDoc(doc(db,'users',user.uid),{list:getList(),hist:getHist(),t:Date.now()},{mergeFields:['list','hist','t']}).catch(()=>toast('Could not sync your list')),800);
-  };
-  A.onAuthStateChanged(auth,async u=>{
-    user=u;onUser(u);if(!u)return;
-    try{const snap=await getDoc(doc(db,'users',u.uid));if(snap.exists())mergeRemote(snap.data());window.cloudSave()}
-    catch(e){toast('Could not load your saved list')}
-  });
+  const V='10.12.2',B='https://www.gstatic.com/firebasejs/'+V+'/';
+  const [{initializeApp},A,{getFirestore,doc,getDoc,setDoc}]=await Promise.all([import(B+'firebase-app.js'),import(B+'firebase-auth.js'),import(B+'firebase-firestore.js')]);
+  const app=initializeApp(cfg),auth=A.getAuth(app),db=getFirestore(app);
+  let user=null,timer;
+  window.cloudAuth={
+    google:()=>A.signInWithPopup(auth,new A.GoogleAuthProvider()),
+    email:(e,p)=>A.signInWithEmailAndPassword(auth,e,p),
+    create:(e,p)=>A.createUserWithEmailAndPassword(auth,e,p),
+    out:()=>A.signOut(auth)};
+  window.cloudSave=()=>{
+    if(!user)return;clearTimeout(timer);
+    timer=setTimeout(()=>setDoc(doc(db,'users',user.uid),{list:getList(),hist:getHist(),t:Date.now()}).catch(()=>toast('Could not sync your list')),800);
+  };
+  A.onAuthStateChanged(auth,async u=>{
+    user=u;onUser(u);if(!u)return;
+    try{const snap=await getDoc(doc(db,'users',u.uid));if(snap.exists())mergeRemote(snap.data());window.cloudSave()}
+    catch(e){toast('Could not load your saved list')}
+  });
 }
 </script>
 </body>
