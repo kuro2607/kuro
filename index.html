@@ -93,7 +93,7 @@ body.oled{--bg:#000;--panel:#000}
     <div class="grid md:grid-cols-2 gap-4 mt-4">
       <form onsubmit="playYT(event)" class="panel rounded-2xl p-4 space-y-2">
         <label class="font-bold" for="yt">Play a YouTube link</label>
-        <input id="yt" placeholder="https://www.youtube.com/watch?v=..." class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
+        <input id="yt" placeholder="Video or playlist link from YouTube" class="w-full rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500">
         <button class="btn">Play</button>
         <p class="text-xs text-[#9fb39a]">Publishers such as Ani-One, Muse Asia and Crunchyroll post full episodes and trailers on YouTube.</p>
       </form>
@@ -101,6 +101,20 @@ body.oled{--bg:#000;--panel:#000}
         <label class="font-bold" for="file">Play a file from your device</label>
         <input id="file" type="file" accept="video/*" onchange="playFile(this)" class="block w-full text-sm">
         <p class="text-xs text-[#9fb39a]">The file stays on your device. Nothing is uploaded.</p>
+      </div>
+    </div>
+    <div class="panel rounded-2xl p-4 mt-4 space-y-3">
+      <p class="font-bold">Find full episodes on official channels</p>
+      <form onsubmit="ytFind(event)" class="flex flex-wrap gap-2">
+        <input id="ytq" placeholder="Anime title, like Black Clover" class="flex-1 min-w-[180px] rounded-lg bg-black border border-[#1d2a1d] px-3 py-2 outline-none focus:border-green-500" aria-label="Anime title">
+        <select id="ytch" class="bg-black border border-[#1d2a1d] rounded-lg px-3 py-2" aria-label="Channel">
+          <option>Ani-One Asia</option><option>Ani-One India</option><option>Muse Asia</option></select>
+        <button class="btn">Search on YouTube</button>
+      </form>
+      <p class="text-xs text-[#9fb39a]">The search opens YouTube in a new tab. Copy the video or playlist link you want, paste it above, and it plays here.</p>
+      <div class="flex flex-wrap gap-2">
+        <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@AniOneAsia">Ani-One Asia channel</a>
+        <a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@AniOneTHCollection">Ani-One Thailand Collection</a>
       </div>
     </div>
     <h3 class="font-bold mt-6 mb-2">Free open movies</h3>
@@ -129,7 +143,8 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 
 async function api(path,tries=3){
   if(cache[path])return cache[path];
-  const r=await fetch('https://api.jikan.moe/v4'+path);
+  const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),8000);
+  let r;try{r=await fetch('https://api.jikan.moe/v4'+path,{signal:ctl.signal})}finally{clearTimeout(to)}
   if(r.status===429&&tries>0){await sleep(1200);return api(path,tries-1)}
   if(!r.ok)throw new Error('Request failed ('+r.status+')');
   const j=await r.json();cache[path]=j;return j;
@@ -156,6 +171,33 @@ function fill(el,items){
 }
 function skeleton(el){el.innerHTML=Array(12).fill('<div class="aspect-[3/4] rounded-xl bg-[#0d130d] animate-pulse"></div>').join('')}
 
+/* AniList backup source */
+async function gql(query,variables){
+  const ctl=new AbortController();const to=setTimeout(()=>ctl.abort(),10000);
+  try{
+    const r=await fetch('https://graphql.anilist.co',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({query,variables}),signal:ctl.signal});
+    if(!r.ok)throw new Error('AniList '+r.status);
+    const j=await r.json();if(j.errors)throw new Error(j.errors[0].message);return j.data;
+  }finally{clearTimeout(to)}
+}
+const AL_F='id idMal isAdult title{romaji english} coverImage{large} averageScore episodes format status seasonYear genres studios(isMain:true){nodes{name}} description(asHtml:false) trailer{id site} externalLinks{site url type}';
+function fromAL(m){
+  const yt=m.trailer&&m.trailer.site==='youtube'?m.trailer.id:null;
+  return {mal_id:m.idMal||-m.id,title:m.title.romaji,title_english:m.title.english,
+    images:{jpg:{large_image_url:m.coverImage.large}},score:m.averageScore?+(m.averageScore/10).toFixed(1):null,
+    episodes:m.episodes,type:(m.format||'').replace('_',' '),status:m.status,year:m.seasonYear,
+    synopsis:(m.description||'').replace(/<[^>]*>/g,' '),genres:(m.genres||[]).map(g=>({name:g})),
+    studios:((m.studios&&m.studios.nodes)||[]).map(x=>({name:x.name})),
+    trailer:yt?{embed_url:'https://www.youtube.com/embed/'+yt}:null,
+    streaming:(m.externalLinks||[]).filter(l=>l.type==='STREAMING').map(l=>({name:l.site,url:l.url}))};
+}
+async function alRun(filter,decl,vars){
+  const d=await gql(`query${decl}{Page(perPage:36){${filter}}}`,vars||{});
+  const arr=d.Page.media||(d.Page.airingSchedules||[]).map(x=>x.media);
+  return arr.filter(m=>m&&!m.isAdult).map(fromAL);
+}
+function failBox(msg,retry){return `<div class="col-span-full panel rounded-xl p-5"><p class="font-bold">Could not load anime</p><p class="text-sm text-[#9fb39a] my-2">${esc(msg)}. Check your internet connection, then retry.</p><button class="btn" onclick="${retry}">Retry</button></div>`}
+
 /* views */
 function show(v){
   ['discover','schedule','mylist','player'].forEach(x=>$('#v-'+x).classList.toggle('hidden',x!==v));
@@ -166,19 +208,30 @@ function show(v){
 }
 
 /* discover */
-const feeds={airing:['Airing now','/top/anime?filter=airing&limit=24&sfw=true'],popular:['Most popular','/top/anime?filter=bypopularity&limit=24&sfw=true'],top:['Top rated','/top/anime?limit=24&sfw=true'],upcoming:['Upcoming','/top/anime?filter=upcoming&limit=24&sfw=true']};
+const feeds={
+ airing:['Airing now','/top/anime?filter=airing&limit=24&sfw=true',`media(type:ANIME,status:RELEASING,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`],
+ popular:['Most popular','/top/anime?filter=bypopularity&limit=24&sfw=true',`media(type:ANIME,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`],
+ top:['Top rated','/top/anime?limit=24&sfw=true',`media(type:ANIME,sort:SCORE_DESC,isAdult:false){${AL_F}}`],
+ upcoming:['Upcoming','/top/anime?filter=upcoming&limit=24&sfw=true',`media(type:ANIME,status:NOT_YET_RELEASED,sort:POPULARITY_DESC,isAdult:false){${AL_F}}`]};
 async function loadDiscover(k,btn){
   if(btn){document.querySelectorAll('#d-chips .chip').forEach(c=>c.classList.toggle('on',c===btn))}
   $('#d-title').textContent=feeds[k][0];$('#status').textContent='';skeleton($('#grid'));
-  try{fill($('#grid'),(await api(feeds[k][1])).data)}
-  catch(e){$('#grid').innerHTML='';$('#status').textContent='Could not load anime ('+e.message+'). Wait a few seconds and try again.'}
+  try{
+    let items;
+    try{items=(await api(feeds[k][1])).data}catch(e){items=await alRun(feeds[k][2],'')}
+    fill($('#grid'),items);
+  }catch(e){$('#grid').innerHTML=failBox(e.message,`loadDiscover('${k}')`)}
 }
 async function doSearch(e){
   e.preventDefault();const q=$('#q').value.trim();if(!q)return;
   show('discover');document.querySelectorAll('#d-chips .chip').forEach(c=>c.classList.remove('on'));
   $('#d-title').textContent='Results for "'+q+'"';$('#status').textContent='';skeleton($('#grid'));
-  try{fill($('#grid'),(await api('/anime?q='+encodeURIComponent(q)+'&limit=24&sfw=true&order_by=popularity')).data)}
-  catch(err){$('#grid').innerHTML='';$('#status').textContent='Search failed ('+err.message+'). Try again in a moment.'}
+  try{
+    let items;
+    try{items=(await api('/anime?q='+encodeURIComponent(q)+'&limit=24&sfw=true&order_by=popularity')).data}
+    catch(err){items=await alRun(`media(type:ANIME,search:$q,isAdult:false,sort:SEARCH_MATCH){${AL_F}}`,'($q:String)',{q})}
+    fill($('#grid'),items);
+  }catch(err){$('#grid').innerHTML=failBox(err.message,"doSearch(new Event('submit'))")}
 }
 
 /* schedule */
@@ -188,11 +241,26 @@ function initSchedule(){
   $('#days').innerHTML=days.map(d=>`<button class="chip ${d===today?'on':''}" data-d="${d}" onclick="loadDay('${d}')">${d[0].toUpperCase()+d.slice(1)}</button>`).join('');
   loadDay(today);
 }
+function dayWindow(d){
+  const n=new Date(),t=new Date(n.getFullYear(),n.getMonth(),n.getDate());
+  t.setDate(t.getDate()+((days.indexOf(d)-((n.getDay()+6)%7)+7)%7));
+  const a=Math.floor(t/1000);return [a,a+86400];
+}
 async function loadDay(d){
   document.querySelectorAll('#days .chip').forEach(c=>c.classList.toggle('on',c.dataset.d===d));
   skeleton($('#sgrid'));
-  try{fill($('#sgrid'),(await api('/schedules?filter='+d+'&limit=24&sfw=true')).data)}
-  catch(e){$('#sgrid').innerHTML='<p class="text-[#9fb39a] col-span-full">Could not load the schedule. Try again shortly.</p>'}
+  try{
+    let items;
+    try{items=(await api('/schedules?filter='+d+'&limit=24&sfw=true')).data}
+    catch(e){const [x,y]=dayWindow(d);items=await alRun(`airingSchedules(airingAt_greater:$a,airingAt_lesser:$b,sort:TIME){media{${AL_F}}}`,'($a:Int,$b:Int)',{a:x,b:y})}
+    fill($('#sgrid'),items);
+  }catch(e){$('#sgrid').innerHTML=failBox(e.message,`loadDay('${d}')`)}
+}
+
+async function getDetail(id){
+  if(id>0){try{return (await api('/anime/'+id+'/full')).data}catch(e){}}
+  const d=await gql(`query($i:Int){Media(${id>0?'idMal':'id'}:$i,type:ANIME){${AL_F}}}`,{i:Math.abs(id)});
+  return fromAL(d.Media);
 }
 
 /* detail */
@@ -200,7 +268,7 @@ async function openDetail(id){
   const m=$('#modal');m.classList.remove('hidden');
   $('#modal-body').innerHTML='<p class="p-6 text-[#9fb39a]">Loading...</p>';
   try{
-    const a=(await api('/anime/'+id+'/full')).data;
+    const a=await getDetail(id);
     hist=[{id:a.mal_id,t:name(a),i:pic(a)},...hist.filter(h=>h.id!==a.mal_id)].slice(0,24);store.set('kw_hist',hist);
     const stream=(a.streaming||[]).map(s=>`<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="${esc(s.url)}">${esc(s.name)}</a>`).join('')
       ||`<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.crunchyroll.com/search?q=${encodeURIComponent(name(a))}">Search Crunchyroll</a>
@@ -225,7 +293,7 @@ async function openDetail(id){
       <p class="text-sm leading-relaxed mt-4 text-[#cfdccb]">${esc(a.synopsis||'No synopsis available yet.')}</p>
       ${trailer}
       <h3 class="font-bold mt-5 mb-2">Watch legally</h3>
-      <div class="flex flex-wrap gap-2">${stream}</div>
+      <div class="flex flex-wrap gap-2">${stream}<a class="btn2 text-sm" target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/results?search_query=${encodeURIComponent(name(a)+' full episode Ani-One Asia')}">Find full episodes on YouTube</a></div>
       <h3 class="font-bold mt-5 mb-2">Track it</h3>
       <div class="flex flex-wrap items-center gap-2" id="track">${trackUI(a.mal_id,cur,a)}</div>`;
     window._cur=a;
@@ -273,14 +341,19 @@ function renderList(){
 function clearHist(){hist=[];store.set('kw_hist',hist);renderList();toast('History cleared')}
 
 /* player */
-function embed(id){
-  $('#stage').innerHTML=`<iframe class="w-full h-full" src="https://www.youtube-nocookie.com/embed/${id}" title="Video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+function embed(id,list){
+  const src=id?`https://www.youtube-nocookie.com/embed/${id}${list?'?list='+list:''}`:`https://www.youtube-nocookie.com/embed/videoseries?list=${list}`;
+  $('#stage').innerHTML=`<iframe class="w-full h-full" src="${src}" title="Video player" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
   $('#stage').scrollIntoView({behavior:'smooth',block:'center'});
 }
 function playYT(e){
-  e.preventDefault();
-  const m=$('#yt').value.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
-  m?embed(m[1]):toast('That does not look like a YouTube link');
+  e.preventDefault();const u=$('#yt').value;
+  const v=u.match(/(?:[?&]v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/),l=u.match(/[?&]list=([\w-]+)/);
+  (v||l)?embed(v&&v[1],l&&l[1]):toast('That does not look like a YouTube link');
+}
+function ytFind(e){
+  e.preventDefault();const t=$('#ytq').value.trim();if(!t)return;
+  window.open('https://www.youtube.com/results?search_query='+encodeURIComponent(t+' full episode '+$('#ytch').value),'_blank','noopener');
 }
 function playFile(inp){
   const f=inp.files[0];if(!f)return;
