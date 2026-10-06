@@ -25,13 +25,19 @@ body{background:var(--bg);color:var(--bone);font-family:Figtree,system-ui,sans-s
 h1,h2,h3,.brand{font-family:'Bricolage Grotesque',Figtree,sans-serif}
 body.oled{--bg:#000;--panel:#000}
 .panel{background:var(--panel);border:1px solid var(--line)}
-.chip{border:1px solid var(--line);padding:.35rem .8rem;border-radius:999px;font-size:.85rem;color:#9fb39a}
+.chip{white-space:nowrap;flex-shrink:0;border:1px solid var(--line);padding:.35rem .8rem;border-radius:999px;font-size:.85rem;color:#9fb39a}
 .chip.on{background:var(--g);color:#031205;border-color:var(--g);font-weight:700}
 .btn{background:var(--g);color:#031205;font-weight:700;border-radius:.6rem;padding:.5rem .9rem}
 .btn2{border:1px solid var(--line);border-radius:.6rem;padding:.5rem .9rem;color:var(--bone)}
 .btn2:hover,.chip:hover{border-color:var(--g)}
 :focus-visible{outline:2px solid var(--g);outline-offset:2px}
 .clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+html,body{max-width:100%;overflow-x:hidden}
+img,iframe,video{max-width:100%}
+input,select,textarea{font-size:16px}
+#nav{scrollbar-width:none}#nav::-webkit-scrollbar{display:none}
+.chip,.btn,.btn2{min-height:40px;display:inline-flex;align-items:center;justify-content:center}
+@media (max-width:640px){#grid,#sgrid{gap:.75rem}main{padding-left:.75rem!important;padding-right:.75rem!important}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
@@ -42,16 +48,16 @@ body.oled{--bg:#000;--panel:#000}
 <symbol id="clover" viewBox="-40 -40 80 80"><g fill="currentColor"><use href="#leaf"/><use href="#leaf" transform="rotate(72)"/><use href="#leaf" transform="rotate(144)"/><use href="#leaf" transform="rotate(216)"/><use href="#leaf" transform="rotate(288)"/></g><circle r="3" fill="#050805"/></symbol>
 </defs></svg>
 
-<header class="sticky top-0 z-40 border-b border-[#1d2a1d] bg-black/90 backdrop-blur">
+<header class="md:sticky md:top-0 z-40 border-b border-[#1d2a1d] bg-black/90 backdrop-blur">
   <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center gap-3">
-    <a href="#" onclick="show('discover');return false" class="flex items-center gap-2">
-      <svg class="w-10 h-10 text-green-500"><use href="#clover"/></svg>
+    <a href="#" onclick="show('discover');return false" class="flex items-center gap-2 shrink-0">
+      <svg class="w-9 h-9 sm:w-10 sm:h-10 text-green-500"><use href="#clover"/></svg>
       <span class="brand text-2xl font-extrabold">Kuro<span class="text-green-500">Watch</span></span>
     </a>
-    <form onsubmit="doSearch(event)" class="flex-1 min-w-[200px] max-w-xl">
+    <form onsubmit="doSearch(event)" class="order-2 md:order-none w-full md:w-auto md:flex-1 max-w-xl">
       <input id="q" type="search" placeholder="Search anime, like Black Clover or Frieren" class="w-full rounded-xl bg-[#0d130d] border border-[#1d2a1d] px-4 py-2 outline-none focus:border-green-500" aria-label="Search anime">
     </form>
-    <nav class="flex gap-2 text-sm" id="nav">
+    <nav class="order-3 md:order-none flex gap-2 text-sm overflow-x-auto w-full md:w-auto pb-1" id="nav">
       <button class="chip on" data-v="discover" onclick="show('discover')">Discover</button>
       <button class="chip" data-v="schedule" onclick="show('schedule')">Schedule</button>
       <button class="chip" data-v="mylist" onclick="show('mylist')">My list</button>
@@ -66,7 +72,7 @@ body.oled{--bg:#000;--panel:#000}
   <section id="v-discover">
     <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
       <h2 class="text-2xl font-extrabold" id="d-title">Airing now</h2>
-      <div class="flex gap-2" id="d-chips">
+      <div class="flex flex-wrap gap-2" id="d-chips">
         <button class="chip on" onclick="loadDiscover('airing',this)">Airing now</button>
         <button class="chip" onclick="loadDiscover('popular',this)">Most popular</button>
         <button class="chip" onclick="loadDiscover('top',this)">Top rated</button>
@@ -143,7 +149,7 @@ body.oled{--bg:#000;--panel:#000}
   <p class="max-w-3xl">KuroWatch is a free anime discovery site. Search thousands of anime, read synopses and scores, watch official trailers, check the weekly airing schedule, and keep a watchlist with episode progress. Every show links to the services where it streams legally. KuroWatch does not host any video.</p>
 </footer>
 <div id="modal" class="fixed inset-0 z-50 hidden bg-black/85 p-3 overflow-y-auto" onclick="if(event.target===this)closeModal()">
-  <div class="panel rounded-2xl max-w-3xl mx-auto my-4 p-5" role="dialog" aria-modal="true" id="modal-body"></div>
+  <div class="panel rounded-2xl max-w-3xl mx-auto my-2 sm:my-4 p-4 sm:p-5" role="dialog" aria-modal="true" id="modal-body"></div>
 </div>
 
 <div id="auth-modal" class="fixed inset-0 z-50 hidden bg-black/85 p-3 overflow-y-auto" onclick="if(event.target===this)closeAuth()">
@@ -166,7 +172,7 @@ body.oled{--bg:#000;--panel:#000}
   </div>
 </div>
 
-<div id="toast" class="fixed bottom-5 right-5 z-50 hidden panel border-green-500 rounded-xl px-4 py-2 text-sm"></div>
+<div id="toast" class="fixed bottom-4 left-3 right-3 sm:left-auto sm:right-5 z-50 text-center hidden panel border-green-500 rounded-xl px-4 py-2 text-sm"></div>
 
 <script>
 /* Firebase web config for online sign-in. */
@@ -327,7 +333,7 @@ async function openDetail(id){
     const cur=list[a.mal_id]||{status:'',ep:0};
     $('#modal-body').innerHTML=`
       <div class="flex justify-between items-start gap-3">
-        <h2 class="text-2xl font-extrabold">${esc(name(a))}</h2>
+        <h2 class="text-xl sm:text-2xl font-extrabold min-w-0 break-words">${esc(name(a))}</h2>
         <button class="btn2" onclick="closeModal()" aria-label="Close">Close</button></div>
       <div class="flex gap-4 mt-4">
         <img src="${esc(pic(a))}" alt="" class="w-28 sm:w-40 rounded-xl self-start">
